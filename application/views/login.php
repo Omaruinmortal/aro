@@ -90,7 +90,7 @@
         <script src="assets/js/jquery.slimscroll.min.js"></script>        
 
         <script>
-            ssa.login.submit_login();
+            aro.login.submit_login();
         </script>
         
     </body>

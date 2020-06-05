@@ -27,7 +27,7 @@
         <div class="left-sidenav">           
             <!-- LOGO -->
             <div class="topbar-left">
-                <a href="#" class="logo">
+                <a href="<?php echo base_url() ?>index.php/Principal" class="logo">
                     <span>
                         <img src="<?php echo base_url() ?>assets/images/logo-sm.png" alt="logo-small" class="logo-sm">
                     </span>
@@ -60,8 +60,8 @@
                         </span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
-                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url() ?>vertical-2/helpdesk-index.html"><i class="ti-control-record"></i>Usuarios</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url() ?>helpdesk/helpdesk-teckets.html"><i class="ti-control-record"></i>Clientes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Usuarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url() ?>index.php/Clientes"><i class="ti-control-record"></i>Clientes</a></li>
                         
                     </ul>
                 </li>

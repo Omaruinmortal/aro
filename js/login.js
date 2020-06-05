@@ -1,6 +1,6 @@
-var ssa = window.ssa || {};
+var aro = window.aro || {};
 
-ssa.login = (function () {
+aro.login = (function () {
 
     return {
 

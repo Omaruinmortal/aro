@@ -22,28 +22,23 @@ class Musuarios extends CI_Model {
         $query = $this->db->get();
         return $query->row();  
     }
-    /*
-    function inserta_usuario($persona = array(), $rol = array()){
-        $this->db->trans_begin();
-        $this->db->insert('tablero_persona', $persona);
-         $id_persona=$this->db->insert_id();
-        if ($id_persona)
-         {
-             $rol['id_persona']=$id_persona;
-             $this->db->insert('tablero_rol_persona', $rol);
-             
-         }
+    
+    function agrega_cliente($serv = array()){        
+        $this->db->trans_begin();    
+        $this->db->insert('ind_recetas', $serv);
 
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             return false;
         } else {
-             $id=$this->db->insert_id();
+            $id = $this->db->insert_id();
             $this->db->trans_commit();
             return $id;
         }
     }
+
     
+    /*
     function agrega_bitacora_acceso($serv = array()){        
         $this->db->trans_begin();    
         $this->db->insert('bitacora_accesos', $serv);
