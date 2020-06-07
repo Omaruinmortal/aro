@@ -46,46 +46,48 @@ class Clientes extends CI_Controller {
 	
 	public function guardar_cliente() {
 
-		if($this->input->post('nombre')==''){
-			echo 'nombre';
-			die();
-		} elseif ($this->input->post('primer_apellido')=='') {
-			echo 'primer_apellido';
-			die();
-		} elseif ($this->input->post('celular')=='') {
-			echo 'celular';
-			die();
-		} elseif ($this->input->post('domicilio')=='') {
-			echo 'domicilio';
-			die();
-		}  elseif ($this->input->post('id_comunidad')=='none') {
-			echo 'id_comunidad';
-			die();
-		} elseif ($this->input->post('id_paquete')=='none') {
-			echo 'id_paquete';
-			die();
-		} else{			
-			$guardar = array (
-				'nombre' => $this->input->post('nombre'),
-				'primer_apellido' => $this->input->post('primer_apellido'),
-				'segundo_apellido' => $this->input->post('segundo_apellido'),
-				'celular' => $this->input->post('celular'),
-				'domicilio' => $this->input->post('domicilio'),
-				'id_comunidad' => $this->input->post('id_comunidad'),
-				'id_paquete' => $this->input->post('id_paquete'),
-				'fecha_registro' => date("Y-m-d H:i:s",strtotime(date("d-m-Y H:i:s"))),
-				);
-	
-			$cliente_guardado = $this->Mclientes->agrega_cliente($guardar);
-	
-			if ($cliente_guardado) {
-				echo "Guardado";
-			} else {
-				echo "error";
+		if($this->input->post('tipo')=='agregar_usuario'){		
+			if($this->input->post('nombre')==''){
+				echo 'nombre';
 				die();
-			}
-		}
+			} elseif ($this->input->post('primer_apellido')=='') {
+				echo 'primer_apellido';
+				die();
+			} elseif ($this->input->post('celular')=='') {
+				echo 'celular';
+				die();
+			} elseif ($this->input->post('domicilio')=='') {
+				echo 'domicilio';
+				die();
+			}  elseif ($this->input->post('id_comunidad')=='none') {
+				echo 'id_comunidad';
+				die();
+			} elseif ($this->input->post('id_paquete')=='none') {
+				echo 'id_paquete';
+				die();
+			} else{			
+				$guardar = array (
+					'nombre' => $this->input->post('nombre'),
+					'primer_apellido' => $this->input->post('primer_apellido'),
+					'segundo_apellido' => $this->input->post('segundo_apellido'),
+					'celular' => $this->input->post('celular'),
+					'domicilio' => $this->input->post('domicilio'),
+					'id_comunidad' => $this->input->post('id_comunidad'),
+					'id_paquete' => $this->input->post('id_paquete'),
+					'fecha_registro' => date("Y-m-d H:i:s",strtotime(date("d-m-Y H:i:s"))),
+					);
 		
+				$cliente_guardado = $this->Mclientes->agrega_cliente($guardar);
+		
+				if ($cliente_guardado) {
+					echo "Guardado";
+				} else {
+					echo "error";
+					die();
+				}
+			}
+		die();
+		}
 	}
 
 	public function trae_clientes() {
@@ -110,6 +112,76 @@ class Clientes extends CI_Controller {
 			);
 		}
         echo json_encode($result);
+	}
+
+	public function elimina_cliente()
+    {
+		$data =  array('visible' => '0' ,);
+        $id_cliente = $this->input->post('id', TRUE);
+        $this->Mclientes->elimina_cliente($id_cliente,$data);
+        echo 'true';
+	}
+	
+	public function importar_cliente($id_data)
+	{
+		$where_id_cliente = 'id_cliente = '.$id_data;
+		$cliente = $this->Mclientes->trae_cliente($where_id_cliente);
+		$data = array();
+		$data['nombre'] = $cliente[0]->nombre;
+		$data['primer_apellido'] = $cliente[0]->primer_apellido;
+		$data['segundo_apellido'] = $cliente[0]->segundo_apellido;
+		$data['celular'] = $cliente[0]->celular;
+		$data['domicilio'] = $cliente[0]->domicilio;
+		$data['id_comunidad'] = $cliente[0]->id_comunidad;
+		$data['id_paquete'] = $cliente[0]->id_paquete;
+		$where_comunidades = ' 1 = 1';
+		$data['comunidades'] = $this->Mconexion->trae_comunidades($where_comunidades);
+		echo json_encode($data);
+	}
+
+	public function modificar_cliente(){
+		if($this->input->post('tipo')=='modificar_usuario'){		
+			if($this->input->post('nombre_m')==''){
+				echo 'nombre';
+				die();
+			} elseif ($this->input->post('primer_apellido_m')=='') {
+				echo 'primer_apellido';
+				die();
+			} elseif ($this->input->post('celular_m')=='') {
+				echo 'celular';
+				die();
+			} elseif ($this->input->post('domicilio_m')=='') {
+				echo 'domicilio';
+				die();
+			}  elseif ($this->input->post('id_comunidad_m')=='none') {
+				echo 'id_comunidad';
+				die();
+			} elseif ($this->input->post('id_paquete_m')=='none') {
+				echo 'id_paquete';
+				die();
+			} else{			
+				$modificar = array (
+					'nombre' => $this->input->post('nombre_m'),
+					'primer_apellido' => $this->input->post('primer_apellido_m'),
+					'segundo_apellido' => $this->input->post('segundo_apellido_m'),
+					'celular' => $this->input->post('celular_m'),
+					'domicilio' => $this->input->post('domicilio_m'),
+					'id_comunidad' => $this->input->post('id_comunidad_m'),
+					'id_paquete' => $this->input->post('id_paquete_m')
+					);
+				$id = $this->input->post('id_cliente', TRUE);
+				
+				$cliente_modificado = $this->Mclientes->modifica_cliente($id,$modificar);
+		
+				if ($cliente_modificado) {
+					echo "Modificado";
+				} else {
+					echo "error";
+					die();
+				}
+			}
+		die();
+		}
 	}
     
 }

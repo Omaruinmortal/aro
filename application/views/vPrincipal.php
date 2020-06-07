@@ -12,12 +12,28 @@
         <!-- App favicon -->
         <link rel="shortcut icon" href="<?php echo base_url() ?>assets/images/favicon.ico">
 
+        <!-- DataTables -->
+        <link href="<?php echo base_url() ?>plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"
+            type="text/css" />
+        <link href="<?php echo base_url() ?>plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet"
+            type="text/css" />
+        <!-- Responsive datatable examples -->
+        <link href="<?php echo base_url() ?>plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet"
+            type="text/css" />
+            
         <!-- App css -->
         <link href="<?php echo base_url() ?>assets/css/bootstrap-dark.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url() ?>assets/css/jquery-ui.min.css" rel="stylesheet">
         <link href="<?php echo base_url() ?>assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url() ?>assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url() ?>assets/css/app-dark.min.css" rel="stylesheet" type="text/css" />
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        
+        <?php  foreach($scripts as $s):?>
+           <script type='text/javascript' src = '<?php echo base_url() ?>js/<?php echo $s;?>'>
+        <?php endforeach;?>
+            </script>
 
     </head>
 
@@ -136,12 +152,42 @@
                                 <div class="col-lg-3">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5 class="mt-0 mb-2 header-title">Clientes</h5>
+                                            <h5 class="mt-0 mb-2 header-title">Clientes registrados</h5>
                                             <div class="media">
-                                                <i data-feather="tag" class="align-self-center icon-lg icon-dual-warning"></i>                                     
+                                                <i data-feather="users" class="align-self-center icon-lg icon-dual-purple"></i>                                     
                                                 <div class="media-body align-self-center text-truncate ml-3">
                                                     <h2 class="font-40 m-0 font-weight-semibold">
-                                                        198
+                                                        <?php echo $todos_clientes[0]->total;;?>
+                                                    </h2>                                                   
+                                                </div><!--end media-body-->
+                                            </div><!--end media-->
+                                        </div><!--end card-body-->                                        
+                                    </div><!--end card-->                                      
+                                </div><!-- end col-->   
+                                <div class="col-lg-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="mt-0 mb-2 header-title">Pagos del mes</h5>
+                                            <div class="media">
+                                                <i data-feather="users" class="align-self-center icon-lg icon-dual-success"></i>                                                                        
+                                                <div class="media-body align-self-center text-truncate ml-3">
+                                                    <h2 class="font-40 m-0 font-weight-semibold">
+                                                        <?php echo $todos_clientes_pagaron[0]->total;;?>
+                                                    </h2>                                                   
+                                                </div><!--end media-body-->
+                                            </div><!--end media-->
+                                        </div><!--end card-body-->                                        
+                                    </div><!--end card-->                                      
+                                </div><!-- end col-->    
+                                <div class="col-lg-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="mt-0 mb-2 header-title">Pendientes / Pago</h5>
+                                            <div class="media">
+                                            <i data-feather="users" class="align-self-center icon-lg icon-dual-pink"></i>                                                                         
+                                                <div class="media-body align-self-center text-truncate ml-3">
+                                                    <h2 class="font-40 m-0 font-weight-semibold">
+                                                        <?php echo $todos_clientes_por_pagar[0]->total;;?>
                                                     </h2>                                                   
                                                 </div><!--end media-body-->
                                             </div><!--end media-->
@@ -151,6 +197,53 @@
                             </div><!--end row-->
                         </div><!--end col-->                       
                     </div><!--end row-->
+                    <div class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="mt-0 header-title">Pagos mensuales</h4>								
+                                <p class="text-muted mb-3">En esta area podemos administrar clientes del sistema.</p>
+								<div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+									<div class="row">
+										<div class="col-sm-12">
+											<table id="datatable_clientes"
+												class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+												style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+												role="grid" aria-describedby="datatable_info">
+												<thead>
+													<tr role="row">
+														<th class="sorting_asc" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" style="width: 129px;"
+															aria-sort="ascending"
+															aria-label="Name: activate to sort column descending">Nombre
+														</th>														
+														<th class="sorting" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" style="width: 93px;"
+															aria-label="Office: activate to sort column ascending">
+															Fecha de Pago</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" style="width: 93px;"
+															aria-label="Office: activate to sort column ascending">
+															Estado</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" style="width: 93px;"
+															aria-label="Office: activate to sort column ascending">
+															Observacion</th>
+														<th class="sorting" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" style="width: 61px;"
+															aria-label="Salary: activate to sort column ascending">
+															</th>
+													</tr>
+												</thead>
+											</table>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div> <!-- end col -->
+				</div>
                 </div><!-- container -->
 
                 <footer class="footer text-center text-sm-left">
@@ -176,6 +269,27 @@
 
         <!-- App js -->
         <script src="<?php echo base_url() ?>assets/js/app.js"></script>
+
+        <!-- Required datatable js -->
+        <script src="<?php echo base_url(); ?>plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="<?php echo base_url(); ?>plugins/datatables/dataTables.bootstrap4.min.js"></script>
+        <!-- Buttons examples -->
+        <script src="<?php echo base_url(); ?>plugins/datatables/dataTables.buttons.min.js"></script>
+        <script src="<?php echo base_url(); ?>plugins/datatables/buttons.bootstrap4.min.js"></script>
+        <script src="<?php echo base_url(); ?>plugins/datatables/jszip.min.js"></script>
+        <script src="<?php echo base_url(); ?>plugins/datatables/pdfmake.min.js"></script>
+        <script src="<?php echo base_url(); ?>plugins/datatables/vfs_fonts.js"></script>
+        <script src="<?php echo base_url(); ?>plugins/datatables/buttons.html5.min.js"></script>
+        <script src="<?php echo base_url(); ?>plugins/datatables/buttons.print.min.js"></script>
+        <script src="<?php echo base_url(); ?>plugins/datatables/buttons.colVis.min.js"></script>
+        <!-- Responsive examples -->
+        <script src="<?php echo base_url(); ?>plugins/datatables/dataTables.responsive.min.js"></script>
+        <script src="<?php echo base_url(); ?>plugins/datatables/responsive.bootstrap4.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/pages/jquery.datatable.init.js"></script>
+
+        <script>
+            aro.principal.init_dashboard();
+        </script>
         
     </body>
 

@@ -40,4 +40,46 @@ class Mclientes extends CI_Model {
         return $query->result();
     }
 
+    function elimina_cliente($id,$data) {     
+
+        $this->db->trans_begin();
+        $this->db->where('id_cliente',$id);
+        $this->db->update('tbl_clientes',$data);
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return false;
+        } else {
+            $this->db->trans_commit();
+            
+            return true;
+        }
+    }
+
+    function trae_cliente($where) {
+        $this->db->select('*');
+        $this->db->from('tbl_clientes');
+        $this->db->where('visible = 1 ');
+        if($where != NULL) {
+            $this->db->where($where,NULL,FALSE);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function modifica_cliente($id,$data) {
+        $this->db->trans_begin();
+        $this->db->where('id_cliente',$id);
+        $this->db->update('tbl_clientes',$data);
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return false;
+        } else {
+            $this->db->trans_commit();
+            
+            return true;
+        }
+    }
+
 }

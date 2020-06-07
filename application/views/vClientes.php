@@ -27,6 +27,8 @@
 	<link href="<?php echo base_url() ?>assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
 	<link href="<?php echo base_url() ?>assets/css/app-dark.min.css" rel="stylesheet" type="text/css" />
 
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
     <?php  foreach($scripts as $s):?>
            <script type='text/javascript' src = '<?php echo base_url() ?>js/<?php echo $s;?>'>
         <?php endforeach;?>
@@ -222,7 +224,7 @@
 				<form action="<?php echo base_url() ?>/Clientes/guardar_cliente" method="_POST" id="frm_agrega_cliente">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLongTitle">Agregar Cliente</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<button type="button" class="close" id="cerrar_modal" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
@@ -230,37 +232,31 @@
 						<div class="form-group row">
 							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Nombre</label>
 							<div class="col-sm-6">
-								<input class="form-control" type="text" id="nombre" name="nombre" autocomplete="off">
+								<input class="form-control" type="text" id="nombre" name="nombre" autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Primer Apellido</label>
 							<div class="col-sm-6">
-								<input class="form-control" type="text" id="primer_apellido" name="primer_apellido" autocomplete="off">
+								<input class="form-control" type="text" id="primer_apellido" name="primer_apellido" autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Segundo Apellido</label>
 							<div class="col-sm-6">
-								<input class="form-control" type="text" id="segundo_apellido" name="segundo_apellido" autocomplete="off">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Telefono (Casa)</label>
-							<div class="col-sm-6">
-								<input class="form-control" type="text" id="telefono" name="telefono" autocomplete="off">
+								<input class="form-control" type="text" id="segundo_apellido" name="segundo_apellido" autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Celular</label>
 							<div class="col-sm-6">
-								<input class="form-control" type="text" id="celular" name="celular" autocomplete="off">
+								<input class="form-control" type="text" id="celular" name="celular" autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Domicilio</label>
 							<div class="col-sm-6">
-								<input class="form-control" type="text" id="domicilio" name="domicilio" autocomplete="off">
+								<input class="form-control" type="text" id="domicilio" name="domicilio" autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">
 							</div>
 						</div>
 						<div class="form-group row">
@@ -275,7 +271,7 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Colonia</label>
+							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Paquete</label>
 							<div class="col-sm-6">
 							<select class="form-control" id="id_paquete" name="id_paquete">
 								<option value="none" selected="selected">-- Seleccione una opción --</option>
@@ -294,14 +290,99 @@
 					</div>
 					<div class="modal-footer">
 						
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" id="close_modal_cliente" class="btn btn-secondary " data-dismiss="modal">Close</button>
 						<button type="submit" class="btn btn-primary">Agregar</button>
 					</div>
 				</form>
 				</div>
 			</div>
-    </div>
-</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="mdl_modificar_usuario"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+	<div class="modal-content">
+				<div class="container-fluid">
+				<form action="<?php echo base_url() ?>/Clientes/modificar_cliente" method="_POST" id="frm_modificar_cliente">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Modificar Cliente</h5>
+						<button type="button" class="close" id="cerrar_modal_m" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group row">
+							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Nombre</label>
+							<div class="col-sm-6">
+								<input class="form-control" type="hidden" id="id_cliente" name="id_cliente" value='<?php echo $id_cliente;?>' autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">	
+								<input class="form-control" type="text" id="nombre_m" name="nombre_m" autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Primer Apellido</label>
+							<div class="col-sm-6">
+								<input class="form-control" type="text" id="primer_apellido_m" name="primer_apellido_m" autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Segundo Apellido</label>
+							<div class="col-sm-6">
+								<input class="form-control" type="text" id="segundo_apellido_m" name="segundo_apellido_m" autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Celular</label>
+							<div class="col-sm-6">
+								<input class="form-control" type="text" id="celular_m" name="celular_m" autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Domicilio</label>
+							<div class="col-sm-6">
+								<input class="form-control" type="text" id="domicilio_m" name="domicilio_m" autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Colonia</label>
+							<div class="col-sm-6">
+							<select class="form-control" id="id_comunidad_m" name="id_comunidad_m">
+								<option value="none" selected="selected">-- Seleccione una opción --</option>
+								<?php foreach ($comunidades as $key => $var) { ?>
+									<option value="<?php echo $var->id_comunidad; ?>"><?php echo $var->nombre_comunidad; ?></option>
+								<?php } ?>
+							</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Paquete</label>
+							<div class="col-sm-6">
+							<select class="form-control" id="id_paquete_m" name="id_paquete_m">
+								<option value="none" selected="selected">-- Seleccione una opción --</option>
+								<?php foreach ($paquetes as $key => $var) { ?>
+									<option value="<?php echo $var->id_paquete; ?>"><?php echo $var->paquete; ?></option>
+								<?php } ?>
+							</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="example-text-input" class="col-sm-3 col-form-label text-right"></label>
+							<div class="col-sm-6">
+							<div class="alert alert-danger" role="alert" id="noti_modificar_cliente" style="display:none;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						
+						<button type="button" id="close_modal_cliente_m" class="btn btn-secondary " data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Modificar</button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
 
 
 	<!-- jQuery  -->
@@ -338,6 +419,7 @@
 		aro.clientes.init_clientes();
 		aro.clientes.boton_agregar();
 		aro.clientes.submit_guarda();
+		aro.clientes.submit_modificar();
     </script>
 
 </body>
