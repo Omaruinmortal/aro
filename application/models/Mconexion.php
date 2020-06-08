@@ -84,7 +84,7 @@ class Mconexion extends CI_Model {
     function trae_pagos($where){
         $this->db->select('id_pago, id_cliente, MONTHNAME(fecha_registro) as mes, id_estado_pago, observacion');
         $this->db->from('tbl_pagos');
-        $this->db->where('1 = 1');
+        $this->db->where('1 = 1 ');
         $this->db->order_by('id_estado_pago','asc');
         if($where != NULL) {
             $this->db->where($where,NULL,FALSE);
@@ -111,5 +111,21 @@ class Mconexion extends CI_Model {
         }
         $query = $this->db->get();
         return $query->row();  
+    }
+
+    function carga_pago($id,$data) {     
+
+        $this->db->trans_begin();
+        $this->db->where('id_pago',$id);
+        $this->db->update('tbl_pagos',$data);
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return false;
+        } else {
+            $this->db->trans_commit();
+            
+            return true;
+        }
     }
 }

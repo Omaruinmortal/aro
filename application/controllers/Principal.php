@@ -24,6 +24,7 @@ class Principal extends CI_Controller {
 		$this->load->model('Musuarios');
 		$this->load->model('Mclientes');
 		$this->load->model('Mconexion');
+		$this->load->library('upload');
 	}
 
 	public function index()
@@ -56,8 +57,8 @@ class Principal extends CI_Controller {
 						$row->mes,
 						$this->Mconexion->obtiene_estado_pago("id_estado_pago = " . $row->id_estado_pago)->estado_pago .' | $'.$this->Mconexion->trae_paquete("id_paquete = " . $this->Mconexion->obtiene_cliente("id_cliente = " . $row->id_cliente)->id_paquete)->precio,
 						$row->observacion,																					
-						'<button type="button" id="btn_pagado_pago" data-id="' . $row->id_pago . '"  title="Pagado" class="tabledit-edit-button btn btn-sm btn-success" style="float: none; margin: 4px;"><i class="fas fa-check"></i></button>
-						<button type="button" id="btn_modifica_pago" data-id="' . $row->id_pago . '" title="No pagado" class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><i class="fas fa-chevron-left"></i></button>'
+						'<button type="button" id="btn_pagado_pago" data-id="' . $row->id_cliente . '"  title="Pagado" class="tabledit-edit-button btn btn-sm btn-success" style="float: none; margin: 4px;"><i class="fas fa-check"></i></button>
+						<button type="button" id="btn_modifica_pago" data-id="' . $row->id_cliente . '" title="No pagado" class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><i class="fas fa-chevron-left"></i></button>'
 					);
 				}
 				$result = array(
@@ -73,5 +74,43 @@ class Principal extends CI_Controller {
         } else {
             $this->load->view('login');
         }
+	}
+
+	public function importa_pago_mensual($id_data){
+		if ($this->Musuarios->logged_id()) {
+			$where_id_cliente = 'id_cliente = '.$id_data;
+			$cliente = $this->Mclientes->trae_cliente($where_id_cliente);
+			$data = array();
+			$data['nombre'] = $cliente[0]->nombre;
+			$data['primer_apellido'] = $cliente[0]->primer_apellido;
+			$data['segundo_apellido'] = $cliente[0]->segundo_apellido;
+			
+			echo json_encode($data);
+            
+        } else {
+            $this->load->view('login');
+        }
+	}
+
+	public function realiza_pago () {
+		$data =  array();
+		$id_pago = $this->input->post('id_pago', TRUE);
+		$observaciones = $this->input->post('observaciones', TRUE);
+		
+		$config['upload_path']      = './assets/pagos';
+		$config['allowed_types']    = 'gif|jpg|png';
+		$config['max_size']         = '2048';
+		$config['encrypt_name']     = true;
+		$config['remove_spaces']    = true;
+		$this->load->library("upload",$config);
+				
+		$this->upload->initialize($config);
+		
+		if($this->upload->do_upload('archivo_pago')){
+			print_r($this->upload->data());
+		}else{
+			print_r($this->upload->display_errors());
+		}
+		
 	}
 }

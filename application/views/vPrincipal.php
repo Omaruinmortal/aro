@@ -254,7 +254,57 @@
         </div>
         <!-- end page-wrapper -->
 
-        
+        <div class="modal fade" id="mdl_pago_cliente"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+                    <div class="container-fluid">
+                    <form action="<?php echo base_url() ?>/Principal/realiza_pago" method="_POST" id="frm_pago_cliente" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Agregar Pago</h5>
+                            <button type="button" class="close" id="cerrar_modal_pago_x" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-3 col-form-label text-right">Nombre Cliente</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" type="hidden" id="id_pago" name="id_pago" autocomplete="off">
+                                    <input class="form-control" type="text" id="nombre" name="nombre" autocomplete="off" readonly >
+                                </div>
+                            </div><div class="form-group row">
+                                <label for="example-text-input" class="col-sm-3 col-form-label text-right">Subir comprobante</label>
+                                <div class="col-sm-6">
+                                    <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="archivo_pago" name="archivo_pago" lang="es" data-max-size="2048">
+                                    <label class="custom-file-label" id="nombre_archivo" name="nombre_archivo" for="customFileLang">Seleccionar Archivo (2MB)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-3 col-form-label text-right">Observaciones</label>
+                                <div class="col-sm-6">
+                                    <textarea class="form-control" name="observaciones" id="observaciones" cols="30" rows="10" onkeyup="javascript:this.value=this.value.toUpperCase();"></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-3 col-form-label text-right"></label>
+                                <div class="col-sm-6">
+                                <div class="alert alert-danger" role="alert" id="noti_pago_cliente" style="display:none;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            
+                            <button type="button" id="close_modal_pago" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Agregar Pago</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <!-- jQuery  -->
@@ -289,6 +339,7 @@
 
         <script>
             aro.principal.init_dashboard();
+            aro.principal.submit_guarda_pago();
         </script>
         
     </body>

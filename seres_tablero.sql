@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v13.1.1 (64 bit)
-MySQL - 10.4.10-MariaDB : Database - aro
+SQLyog Ultimate v12.5.1 (64 bit)
+MySQL - 10.3.12-MariaDB-log : Database - aro
 *********************************************************************
 */
 
@@ -61,7 +61,7 @@ CREATE TABLE `tbl_comunidades` (
   `fecha_registro` datetime DEFAULT NULL,
   `ultima_actualizacin` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_comunidad`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `tbl_comunidades` */
 
@@ -81,7 +81,8 @@ insert  into `tbl_comunidades`(`id_comunidad`,`nombre_comunidad`,`visible`,`fech
 (13,'BALCONES DE SANTA FE',1,'2020-06-05 02:30:51','2020-06-05 02:31:05'),
 (14,'SANTA TERESA',1,'2020-06-05 02:30:51','2020-06-05 02:31:06'),
 (15,'LLANOS DE SANTA ANA',1,'2020-06-05 02:30:51','2020-06-05 02:31:06'),
-(16,'MINERAL DE SANTA ANA',1,'2020-06-05 02:30:51','2020-06-05 02:31:07');
+(16,'MINERAL DE SANTA ANA',1,'2020-06-05 02:30:51','2020-06-05 02:31:07'),
+(17,'PUENTECILLAS',1,NULL,'2020-06-07 16:30:59');
 
 /*Table structure for table `tbl_estado_pago` */
 
@@ -110,23 +111,24 @@ CREATE TABLE `tbl_pagos` (
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
   `id_estado_pago` int(11) DEFAULT 1 COMMENT '2 = pagado, 3 no pago, 1 pendiente',
   `observacion` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `comprobante_pago` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_pago`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `tbl_pagos` */
 
-insert  into `tbl_pagos`(`id_pago`,`id_cliente`,`fecha_registro`,`id_estado_pago`,`observacion`) values 
-(1,1,'2020-06-01 00:02:00',1,NULL),
-(2,2,'2020-06-01 00:02:00',1,NULL),
-(3,3,'2020-06-01 00:02:00',1,NULL),
-(4,4,'2020-06-01 00:02:00',1,NULL),
-(5,5,'2020-06-01 00:02:00',1,NULL),
-(6,6,'2020-06-01 00:02:00',1,NULL),
-(7,7,'2020-06-01 00:02:00',1,NULL),
-(8,9,'2020-06-01 00:02:00',1,NULL),
-(9,10,'2020-06-01 00:02:00',1,NULL),
-(10,11,'2020-06-01 00:02:00',1,NULL),
-(11,12,'2020-06-01 00:02:00',1,NULL);
+insert  into `tbl_pagos`(`id_pago`,`id_cliente`,`fecha_registro`,`id_estado_pago`,`observacion`,`comprobante_pago`) values 
+(1,1,'2020-06-01 00:02:00',1,NULL,NULL),
+(2,2,'2020-06-01 00:02:00',1,NULL,NULL),
+(3,3,'2020-06-01 00:02:00',1,NULL,NULL),
+(4,4,'2020-06-01 00:02:00',1,NULL,NULL),
+(5,5,'2020-06-01 00:02:00',1,NULL,NULL),
+(6,6,'2020-06-01 00:02:00',1,NULL,NULL),
+(7,7,'2020-06-01 00:02:00',1,NULL,NULL),
+(8,9,'2020-06-01 00:02:00',1,NULL,NULL),
+(9,10,'2020-06-01 00:02:00',1,NULL,NULL),
+(10,11,'2020-06-01 00:02:00',1,NULL,NULL),
+(11,12,'2020-06-01 00:02:00',1,NULL,NULL);
 
 /*Table structure for table `tbl_paquetes` */
 
