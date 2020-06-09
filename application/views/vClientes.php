@@ -33,6 +33,9 @@
            <script type='text/javascript' src = '<?php echo base_url() ?>js/<?php echo $s;?>'>
         <?php endforeach;?>
             </script>
+	 <script>
+		var base_url = "http://<?php echo $_SERVER['HTTP_HOST'] ?>/aro";
+	</script>
 
 </head>
 
@@ -79,7 +82,7 @@
 					</span>
 				</a>
 				<ul class="nav-second-level" aria-expanded="false">
-					<li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Usuarios</a></li>
+					<!--<li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Usuarios</a></li>-->
 					<li class="nav-item"><a class="nav-link" href="<?php echo base_url() ?>index.php/Clientes"><i
 								class="ti-control-record"></i>Clientes</a></li>
 

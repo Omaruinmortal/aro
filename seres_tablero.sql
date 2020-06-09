@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v12.5.1 (64 bit)
-MySQL - 10.3.12-MariaDB-log : Database - aro
+SQLyog Ultimate v13.1.1 (64 bit)
+MySQL - 10.4.10-MariaDB : Database - aro
 *********************************************************************
 */
 
@@ -33,7 +33,7 @@ CREATE TABLE `tbl_clientes` (
   `id_paquete` int(11) NOT NULL,
   `id_comunidad` int(11) NOT NULL,
   PRIMARY KEY (`id_cliente`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `tbl_clientes` */
 
@@ -48,7 +48,8 @@ insert  into `tbl_clientes`(`id_cliente`,`nombre`,`primer_apellido`,`segundo_ape
 (9,'JOSE','GUADALUPE','MARTINEZ','4737375596','LLANOS DE SANTA ANA ABAJO DE TOSTADAS',1,'2020-06-06 01:22:11','2020-06-06 01:22:11',1,15),
 (10,'LILIANA','OLMOS','MORENO','4731240496','CASA BLANCA CURVA MAESTRA',1,'2020-06-06 01:23:18','2020-06-06 01:23:18',1,15),
 (11,'VICTOR DE JESUS','RIOS','RODRIGUEZ','4731011525','PUENTE DE LLANOS PRIMER CASA A LA IZQUIERDA',1,'2020-06-06 01:26:55','2020-06-06 01:26:55',1,15),
-(12,'GABRIELA ','IBARRA','JASSO','4731810867','LLANOS CASA DESPUES DE TOSTADAS PIPA',1,'2020-06-06 01:38:48','2020-06-06 01:38:48',1,15);
+(12,'GABRIELA ','IBARRA','JASSO','4731810867','LLANOS CASA DESPUES DE TOSTADAS PIPA',1,'2020-06-06 01:38:48','2020-06-06 01:38:48',1,15),
+(21,'OMAR','MARTINEZ','TORRES','4735976229','VILLAS',1,'2020-06-08 23:40:19','2020-06-08 23:40:19',2,12);
 
 /*Table structure for table `tbl_comunidades` */
 
@@ -112,23 +113,25 @@ CREATE TABLE `tbl_pagos` (
   `id_estado_pago` int(11) DEFAULT 1 COMMENT '2 = pagado, 3 no pago, 1 pendiente',
   `observacion` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
   `comprobante_pago` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `id_usuario_registro` int(11) DEFAULT NULL,
+  `fecha_actualizacion` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_pago`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `tbl_pagos` */
 
-insert  into `tbl_pagos`(`id_pago`,`id_cliente`,`fecha_registro`,`id_estado_pago`,`observacion`,`comprobante_pago`) values 
-(1,1,'2020-06-01 00:02:00',1,NULL,NULL),
-(2,2,'2020-06-01 00:02:00',1,NULL,NULL),
-(3,3,'2020-06-01 00:02:00',1,NULL,NULL),
-(4,4,'2020-06-01 00:02:00',1,NULL,NULL),
-(5,5,'2020-06-01 00:02:00',1,NULL,NULL),
-(6,6,'2020-06-01 00:02:00',1,NULL,NULL),
-(7,7,'2020-06-01 00:02:00',1,NULL,NULL),
-(8,9,'2020-06-01 00:02:00',1,NULL,NULL),
-(9,10,'2020-06-01 00:02:00',1,NULL,NULL),
-(10,11,'2020-06-01 00:02:00',1,NULL,NULL),
-(11,12,'2020-06-01 00:02:00',1,NULL,NULL);
+insert  into `tbl_pagos`(`id_pago`,`id_cliente`,`fecha_registro`,`id_estado_pago`,`observacion`,`comprobante_pago`,`id_usuario_registro`,`fecha_actualizacion`) values 
+(1,1,'2020-06-01 00:02:00',1,'','',0,'2020-06-08 23:31:29'),
+(2,2,'2020-06-01 00:02:00',1,'','',NULL,'2020-06-08 21:37:09'),
+(3,3,'2020-06-01 00:02:00',1,'','',NULL,'2020-06-08 21:37:08'),
+(4,4,'2020-06-01 00:02:00',1,'','',NULL,'2020-06-08 21:37:08'),
+(5,5,'2020-06-01 00:02:00',1,'','',NULL,'2020-06-08 21:13:58'),
+(6,6,'2020-06-01 00:02:00',1,'','',0,'2020-06-08 23:31:27'),
+(7,7,'2020-06-01 00:02:00',1,'','',NULL,'2020-06-08 21:13:58'),
+(8,9,'2020-06-01 00:02:00',2,'PAGA 129 PESOS','6e42ab29e7cf5a94166cbdc9a00da78a.jpg',1,'2020-06-08 23:44:20'),
+(9,10,'2020-06-01 00:02:00',1,'','',NULL,'2020-06-08 21:37:07'),
+(10,11,'2020-06-01 00:02:00',1,'','',NULL,'2020-06-08 21:37:06'),
+(11,12,'2020-06-01 00:02:00',1,'','',0,'2020-06-08 23:31:26');
 
 /*Table structure for table `tbl_paquetes` */
 

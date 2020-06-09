@@ -34,6 +34,9 @@
            <script type='text/javascript' src = '<?php echo base_url() ?>js/<?php echo $s;?>'>
         <?php endforeach;?>
             </script>
+        <script>
+            var base_url = "http://<?php echo $_SERVER['HTTP_HOST'] ?>/aro";
+        </script>
 
     </head>
 
@@ -76,7 +79,7 @@
                         </span>
                     </a>
                     <ul class="nav-second-level" aria-expanded="false">
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Usuarios</a></li>
+                        <!--<li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Usuarios</a></li>-->
                         <li class="nav-item"><a class="nav-link" href="<?php echo base_url() ?>index.php/Clientes"><i class="ti-control-record"></i>Clientes</a></li>
                         
                     </ul>
@@ -171,7 +174,7 @@
                                             <div class="media">
                                                 <i data-feather="users" class="align-self-center icon-lg icon-dual-success"></i>                                                                        
                                                 <div class="media-body align-self-center text-truncate ml-3">
-                                                    <h2 class="font-40 m-0 font-weight-semibold">
+                                                    <h2 class="font-40 m-0 font-weight-semibold" id="pagados">
                                                         <?php echo $todos_clientes_pagaron[0]->total;;?>
                                                     </h2>                                                   
                                                 </div><!--end media-body-->
@@ -186,7 +189,7 @@
                                             <div class="media">
                                             <i data-feather="users" class="align-self-center icon-lg icon-dual-pink"></i>                                                                         
                                                 <div class="media-body align-self-center text-truncate ml-3">
-                                                    <h2 class="font-40 m-0 font-weight-semibold">
+                                                    <h2 class="font-40 m-0 font-weight-semibold" id="sinpagar">
                                                         <?php echo $todos_clientes_por_pagar[0]->total;;?>
                                                     </h2>                                                   
                                                 </div><!--end media-body-->
@@ -224,6 +227,10 @@
                                                         <th class="sorting" tabindex="0" aria-controls="datatable"
 															rowspan="1" colspan="1" style="width: 93px;"
 															aria-label="Office: activate to sort column ascending">
+															Comunidad</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="datatable"
+															rowspan="1" colspan="1" style="width: 93px;"
+															aria-label="Office: activate to sort column ascending">
 															Estado</th>
                                                         <th class="sorting" tabindex="0" aria-controls="datatable"
 															rowspan="1" colspan="1" style="width: 93px;"
@@ -258,7 +265,8 @@
         <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
                     <div class="container-fluid">
-                    <form action="<?php echo base_url() ?>/Principal/realiza_pago" method="_POST" id="frm_pago_cliente" enctype="multipart/form-data">
+                    <form method="post" id="frm_pago_cliente" enctype="multipart/form-data">
+                    
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle">Agregar Pago</h5>
                             <button type="button" class="close" id="cerrar_modal_pago_x" data-dismiss="modal" aria-label="Close">
@@ -269,16 +277,15 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-3 col-form-label text-right">Nombre Cliente</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" type="hidden" id="id_pago" name="id_pago" autocomplete="off">
+                                    <input class="form-control" type="hidden" id="id_pago" name="id_pago" autocomplete="off" readonly>
+                                    
                                     <input class="form-control" type="text" id="nombre" name="nombre" autocomplete="off" readonly >
                                 </div>
                             </div><div class="form-group row">
                                 <label for="example-text-input" class="col-sm-3 col-form-label text-right">Subir comprobante</label>
                                 <div class="col-sm-6">
-                                    <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="archivo_pago" name="archivo_pago" lang="es" data-max-size="2048">
-                                    <label class="custom-file-label" id="nombre_archivo" name="nombre_archivo" for="customFileLang">Seleccionar Archivo (2MB)</label>
-                                    </div>
+                                    <input type="file" class="form-control" id="archivo_pago" name="archivo_pago" lang="es" data-max-size="2048">
+                                    <div class="alert alert-danger" role="alert" id="noti_archivo_pago" style="display:none;"></div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -301,6 +308,40 @@
                             <button type="submit" class="btn btn-primary">Agregar Pago</button>
                         </div>
                     </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="mdl_comprobante_pago"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+                    <div class="container-fluid">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Comprobante de pago</h5>
+                            <button type="button" class="close" id="cerrar_modal_pago_x_comprobante" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-3 col-form-label text-right">Nombre Cliente</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" type="text" id="nombre_cliente" name="nombre_cliente" autocomplete="off" readonly >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                            <div class="col-sm-12">
+                                    <center>
+                                    <img src="" id="comprobante" alt="Comprobante" class="img-responsive" width="80%">
+                                    </center>                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -339,7 +380,6 @@
 
         <script>
             aro.principal.init_dashboard();
-            aro.principal.submit_guarda_pago();
         </script>
         
     </body>

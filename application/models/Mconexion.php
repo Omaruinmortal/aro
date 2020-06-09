@@ -68,7 +68,7 @@ class Mconexion extends CI_Model {
     function cantidad_todos_clientes_pagaron(){
         $this->db->select('count(*) as total');
         $this->db->from('tbl_pagos');
-        $this->db->where('id_estado_pago = 2');        
+        $this->db->where('id_estado_pago = 2 and MONTH(fecha_registro) = MONTH(NOW())');        
         $query = $this->db->get();
         return $query->result();
     }
@@ -84,7 +84,7 @@ class Mconexion extends CI_Model {
     function trae_pagos($where){
         $this->db->select('id_pago, id_cliente, MONTHNAME(fecha_registro) as mes, id_estado_pago, observacion');
         $this->db->from('tbl_pagos');
-        $this->db->where('1 = 1 ');
+        $this->db->where('MONTH(fecha_registro) = MONTH(NOW()) OR id_estado_pago = 1');
         $this->db->order_by('id_estado_pago','asc');
         if($where != NULL) {
             $this->db->where($where,NULL,FALSE);
@@ -127,5 +127,15 @@ class Mconexion extends CI_Model {
             
             return true;
         }
+    }
+
+    function trae_pago($where){
+        $this->db->select('*');
+        $this->db->from('tbl_pagos');
+        if ($where != NULL) {
+            $this->db->where($where, NULL, FALSE);
+        }
+        $query = $this->db->get();
+        return $query->row();  
     }
 }
