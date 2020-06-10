@@ -141,7 +141,7 @@ class Principal extends CI_Controller {
 					$sql =  array('comprobante_pago' => $data['file_name'],
 								'observacion' => $observaciones,
 								'id_estado_pago' => 2,
-								'id_usuario_registro' => $id_usuario,
+								'id_usuario_registro' => intval($id_usuario),
 								);
 					
 					$res = $this->Mconexion->carga_pago($id_pago,$sql);
