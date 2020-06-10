@@ -266,7 +266,6 @@
         <div class="modal-content">
                     <div class="container-fluid">
                     <form method="post" id="frm_pago_cliente" enctype="multipart/form-data">
-                    
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle">Agregar Pago</h5>
                             <button type="button" class="close" id="cerrar_modal_pago_x" data-dismiss="modal" aria-label="Close">

@@ -118,7 +118,6 @@ class Mconexion extends CI_Model {
         $this->db->trans_begin();
         $this->db->where('id_pago',$id);
         $this->db->update('tbl_pagos',$data);
-
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             return false;

@@ -123,6 +123,7 @@ class Principal extends CI_Controller {
 			$data =  array();
 			$id_pago = $this->input->post('id_pago', TRUE);
 			$observaciones = $this->input->post('observaciones', TRUE);
+			$id_usuario = $this->session->userdata('id_persona');
 			
 			if(isset($_FILES["archivo_pago"]["name"])) 
 				{			
@@ -140,7 +141,7 @@ class Principal extends CI_Controller {
 					$sql =  array('comprobante_pago' => $data['file_name'],
 								'observacion' => $observaciones,
 								'id_estado_pago' => 2,
-								'id_usuario_registro' => $this->session->userdata('id_persona'),
+								'id_usuario_registro' => $id_usuario,
 								);
 					
 					$res = $this->Mconexion->carga_pago($id_pago,$sql);
