@@ -42,6 +42,8 @@ class Clientes extends CI_Controller {
 			$data['nombre_completo'] = $this->session->userdata('nombre_completo'); 
 			$where_comunidades = ' 1 = 1';
 			$data['comunidades'] = $this->Mconexion->trae_comunidades($where_comunidades);  
+			$where_antenas_ap = ' 1 = 1';
+			$data['antenas_ap'] = $this->Mconexion->trae_antenas_ap($where_antenas_ap);  
 			$where_paquetes = ' 1 = 1';
 			$data['paquetes'] = $this->Mconexion->trae_paquetes($where_paquetes);  
 			
@@ -68,13 +70,13 @@ class Clientes extends CI_Controller {
 				} elseif ($this->input->post('domicilio')=='') {
 					echo 'domicilio';
 					die();
-				}  elseif ($this->input->post('id_comunidad')=='none') {
+				}  elseif ($this->input->post('id_comunidad')=='0') {
 					echo 'id_comunidad';
 					die();
-				} elseif ($this->input->post('id_paquete')=='none') {
+				} elseif ($this->input->post('id_paquete')=='0') {
 					echo 'id_paquete';
 					die();
-				} elseif ($this->input->post('fecha_instalacion')=='none') {
+				} elseif ($this->input->post('fecha_instalacion')=='0') {
 					echo 'fecha_instalacion';
 					die();
 				}else{			
@@ -85,7 +87,9 @@ class Clientes extends CI_Controller {
 						'celular' => $this->input->post('celular'),
 						'domicilio' => $this->input->post('domicilio'),
 						'id_comunidad' => $this->input->post('id_comunidad'),
-						'id_paquete' => $this->input->post('id_paquete'),
+						'id_paquete' => $this->input->post('id_paquete'),			
+						'id_antena_ap' => $this->input->post('id_antena_ap'),						
+						'mac_antena_cliente' => $this->input->post('mac_antena_cliente'),
 						'fecha_instalacion' => date("Y/m/d", strtotime($this->input->post('fecha_instalacion'))),
 						'fecha_registro' => date("Y-m-d H:i:s",strtotime(date("d-m-Y H:i:s"))),
 						);
@@ -159,6 +163,8 @@ class Clientes extends CI_Controller {
 			$data['celular'] = $cliente[0]->celular;
 			$data['domicilio'] = $cliente[0]->domicilio;
 			$data['id_comunidad'] = $cliente[0]->id_comunidad;
+			$data['mac_antena_cliente'] = $cliente[0]->mac_antena_cliente;
+			$data['id_antena_ap'] = $cliente[0]->id_antena_ap;
 			$data['id_paquete'] = $cliente[0]->id_paquete;
 			$data['fecha_instalacion'] = date("Y-m-d", strtotime($cliente[0]->fecha_instalacion));
 			$where_comunidades = ' 1 = 1';
@@ -185,13 +191,13 @@ class Clientes extends CI_Controller {
 				} elseif ($this->input->post('domicilio_m')=='') {
 					echo 'domicilio';
 					die();
-				}  elseif ($this->input->post('id_comunidad_m')=='none') {
+				}  elseif ($this->input->post('id_comunidad_m')=='0') {
 					echo 'id_comunidad';
 					die();
-				} elseif ($this->input->post('id_paquete_m')=='none') {
+				} elseif ($this->input->post('id_paquete_m')=='0') {
 					echo 'id_paquete';
 					die();
-				} elseif ($this->input->post('fecha_instalacion_m')=='none') {
+				} elseif ($this->input->post('fecha_instalacion_m')=='0') {
 					echo 'fecha_instalacion_m';
 					die();
 				}else{			
@@ -203,6 +209,8 @@ class Clientes extends CI_Controller {
 						'domicilio' => $this->input->post('domicilio_m'),
 						'id_comunidad' => $this->input->post('id_comunidad_m'),
 						'id_paquete' => $this->input->post('id_paquete_m'),
+						'mac_antena_cliente' => $this->input->post('mac_antena_cliente_m'),
+						'id_antena_ap' => $this->input->post('id_antena_ap_m'),						
 						'fecha_instalacion' => date("Y/m/d", strtotime($this->input->post('fecha_instalacion_m'))),
 						);
 					$id = $this->input->post('id_cliente', TRUE);

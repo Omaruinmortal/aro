@@ -215,30 +215,17 @@
 												role="grid" aria-describedby="datatable_info">
 												<thead>
 													<tr role="row">
-														<th class="sorting_asc" tabindex="0" aria-controls="datatable"
-															rowspan="1" colspan="1" style="width: 129px;"
-															aria-sort="ascending"
-															aria-label="Name: activate to sort column descending">Nombre
-														</th>														
-														<th class="sorting" tabindex="0" aria-controls="datatable"
-															rowspan="1" colspan="1" style="width: 93px;"
-															aria-label="Office: activate to sort column ascending">
+														<th class="sorting_asc" aria-controls="datatable">
+                                                            Nombre</th>														
+														<th class="sorting" aria-controls="datatable">
 															Fecha de Pago</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="datatable"
-															rowspan="1" colspan="1" style="width: 93px;"
-															aria-label="Office: activate to sort column ascending">
+                                                        <th class="sorting" aria-controls="datatable">
 															Comunidad</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="datatable"
-															rowspan="1" colspan="1" style="width: 93px;"
-															aria-label="Office: activate to sort column ascending">
+                                                        <th class="sorting" aria-controls="datatable">
 															Estado</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="datatable"
-															rowspan="1" colspan="1" style="width: 93px;"
-															aria-label="Office: activate to sort column ascending">
+                                                        <th class="sorting" aria-controls="datatable">
 															Observacion</th>
-														<th class="sorting" tabindex="0" aria-controls="datatable"
-															rowspan="1" colspan="1" style="width: 61px;"
-															aria-label="Salary: activate to sort column ascending">
+														<th class="sorting" aria-controls="datatable">
 															</th>
 													</tr>
 												</thead>

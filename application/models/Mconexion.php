@@ -25,6 +25,18 @@ class Mconexion extends CI_Model {
         return $query->result();
     }
 
+    function trae_antenas_ap($where){
+        $this->db->select('id_antena_ap, nombre_antena_ap');
+        $this->db->from('tbl_antenas_ap');
+        $this->db->where('visible = 1');
+        $this->db->order_by('nombre_antena_ap','asc');
+        if($where != NULL) {
+            $this->db->where($where,NULL,FALSE);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function trae_comunidad($where){
         $this->db->select('*');
         $this->db->from('tbl_comunidades');

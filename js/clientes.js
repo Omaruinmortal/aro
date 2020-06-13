@@ -101,6 +101,8 @@ aro.clientes = (function () {
                            $('#id_comunidad_m').val(response.id_comunidad);
                            $('#id_paquete_m').val(response.id_paquete);
                            $('#fecha_instalacion_m').val(response.fecha_instalacion);
+                           $('#mac_antena_cliente_m').val(response.mac_antena_cliente);
+                           $('#id_antena_ap_m').val(response.id_antena_ap);
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert('error');

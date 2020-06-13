@@ -177,22 +177,13 @@
 												role="grid" aria-describedby="datatable_info">
 												<thead>
 													<tr role="row">
-														<th class="sorting_asc" tabindex="0" aria-controls="datatable"
-															rowspan="1" colspan="1" style="width: 129px;"
-															aria-sort="ascending"
-															aria-label="Name: activate to sort column descending">Nombre
-														</th>
-														<th class="sorting" tabindex="0" aria-controls="datatable"
-															rowspan="1" colspan="1" style="width: 202px;"
-															aria-label="Position: activate to sort column ascending">
+														<th class="sorting_asc" aria-controls="datatable">
+                                                            Nombre</th>														
+														<th class="sorting" aria-controls="datatable">
 															Zona</th>
-														<th class="sorting" tabindex="0" aria-controls="datatable"
-															rowspan="1" colspan="1" style="width: 93px;"
-															aria-label="Office: activate to sort column ascending">
+                                                        <th class="sorting" aria-controls="datatable">
 															Celular</th>
-														<th class="sorting" tabindex="0" aria-controls="datatable"
-															rowspan="1" colspan="1" style="width: 61px;"
-															aria-label="Salary: activate to sort column ascending">
+														<th class="sorting" aria-controls="datatable">
 															</th>
 													</tr>
 												</thead>
@@ -272,9 +263,26 @@
 							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Colonia</label>
 							<div class="col-sm-6">
 							<select class="form-control" id="id_comunidad" name="id_comunidad">
-								<option value="none" selected="selected">-- Seleccione una opción --</option>
+								<option value="0" selected="selected">-- Seleccione una opción --</option>
 								<?php foreach ($comunidades as $key => $var) { ?>
 									<option value="<?php echo $var->id_comunidad; ?>"><?php echo $var->nombre_comunidad; ?></option>
+								<?php } ?>
+							</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Mac Address</label>
+							<div class="col-sm-6">
+								<input class="form-control" type="text" id="mac_antena_cliente" name="mac_antena_cliente" maxlength="17" autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Antena conectada a:</label>
+							<div class="col-sm-6">
+							<select class="form-control" id="id_antena_ap" name="id_antena_ap">
+								<option value="0" selected="selected">-- Seleccione una opción --</option>
+								<?php foreach ($antenas_ap as $key => $var) { ?>
+									<option value="<?php echo $var->id_antena_ap; ?>"><?php echo $var->nombre_antena_ap; ?></option>
 								<?php } ?>
 							</select>
 							</div>
@@ -283,7 +291,7 @@
 							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Paquete</label>
 							<div class="col-sm-6">
 							<select class="form-control" id="id_paquete" name="id_paquete">
-								<option value="none" selected="selected">-- Seleccione una opción --</option>
+								<option value="0" selected="selected">-- Seleccione una opción --</option>
 								<?php foreach ($paquetes as $key => $var) { ?>
 									<option value="<?php echo $var->id_paquete; ?>"><?php echo $var->paquete; ?></option>
 								<?php } ?>
@@ -361,9 +369,26 @@
 							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Colonia</label>
 							<div class="col-sm-6">
 							<select class="form-control" id="id_comunidad_m" name="id_comunidad_m">
-								<option value="none" selected="selected">-- Seleccione una opción --</option>
+								<option value="0" selected="selected">-- Seleccione una opción --</option>
 								<?php foreach ($comunidades as $key => $var) { ?>
 									<option value="<?php echo $var->id_comunidad; ?>"><?php echo $var->nombre_comunidad; ?></option>
+								<?php } ?>
+							</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Mac Address</label>
+							<div class="col-sm-6">
+								<input class="form-control" type="text" id="mac_antena_cliente_m"  name="mac_antena_cliente_m" maxlength="17" autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Antena conectada a:</label>
+							<div class="col-sm-6">
+							<select class="form-control" id="id_antena_ap_m" name="id_antena_ap_m">
+								<option value="0" selected="selected">-- Seleccione una opción --</option>
+								<?php foreach ($antenas_ap as $key => $var) { ?>
+									<option value="<?php echo $var->id_antena_ap; ?>"><?php echo $var->nombre_antena_ap; ?></option>
 								<?php } ?>
 							</select>
 							</div>
@@ -372,7 +397,7 @@
 							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Paquete</label>
 							<div class="col-sm-6">
 							<select class="form-control" id="id_paquete_m" name="id_paquete_m">
-								<option value="none" selected="selected">-- Seleccione una opción --</option>
+								<option value="0" selected="selected">-- Seleccione una opción --</option>
 								<?php foreach ($paquetes as $key => $var) { ?>
 									<option value="<?php echo $var->id_paquete; ?>"><?php echo $var->paquete; ?></option>
 								<?php } ?>
