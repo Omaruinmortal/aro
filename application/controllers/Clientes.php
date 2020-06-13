@@ -25,8 +25,7 @@ class Clientes extends CI_Controller {
 		$this->load->model('Mclientes');
 		$this->load->model('Mconexion');
     }
-    public function base()
-	{ 
+    public function base(){ 
         if ($this->Musuarios->logged_id()) {
 		
         } else {
@@ -75,7 +74,10 @@ class Clientes extends CI_Controller {
 				} elseif ($this->input->post('id_paquete')=='none') {
 					echo 'id_paquete';
 					die();
-				} else{			
+				} elseif ($this->input->post('fecha_instalacion')=='none') {
+					echo 'fecha_instalacion';
+					die();
+				}else{			
 					$guardar = array (
 						'nombre' => $this->input->post('nombre'),
 						'primer_apellido' => $this->input->post('primer_apellido'),
@@ -84,6 +86,7 @@ class Clientes extends CI_Controller {
 						'domicilio' => $this->input->post('domicilio'),
 						'id_comunidad' => $this->input->post('id_comunidad'),
 						'id_paquete' => $this->input->post('id_paquete'),
+						'fecha_instalacion' => date("Y/m/d", strtotime($this->input->post('fecha_instalacion'))),
 						'fecha_registro' => date("Y-m-d H:i:s",strtotime(date("d-m-Y H:i:s"))),
 						);
 			
@@ -132,8 +135,7 @@ class Clientes extends CI_Controller {
         }
 	}
 
-	public function elimina_cliente()
-    {
+	public function elimina_cliente(){
 		
 		if ($this->Musuarios->logged_id()) {
 			$data =  array('visible' => '0' ,);
@@ -145,8 +147,7 @@ class Clientes extends CI_Controller {
         }
 	}
 	
-	public function importar_cliente($id_data)
-	{
+	public function importar_cliente($id_data){
 		
 		if ($this->Musuarios->logged_id()) {
 			$where_id_cliente = 'id_cliente = '.$id_data;
@@ -159,6 +160,7 @@ class Clientes extends CI_Controller {
 			$data['domicilio'] = $cliente[0]->domicilio;
 			$data['id_comunidad'] = $cliente[0]->id_comunidad;
 			$data['id_paquete'] = $cliente[0]->id_paquete;
+			$data['fecha_instalacion'] = date("Y-m-d", strtotime($cliente[0]->fecha_instalacion));
 			$where_comunidades = ' 1 = 1';
 			$data['comunidades'] = $this->Mconexion->trae_comunidades($where_comunidades);
 			echo json_encode($data);
@@ -189,7 +191,10 @@ class Clientes extends CI_Controller {
 				} elseif ($this->input->post('id_paquete_m')=='none') {
 					echo 'id_paquete';
 					die();
-				} else{			
+				} elseif ($this->input->post('fecha_instalacion_m')=='none') {
+					echo 'fecha_instalacion_m';
+					die();
+				}else{			
 					$modificar = array (
 						'nombre' => $this->input->post('nombre_m'),
 						'primer_apellido' => $this->input->post('primer_apellido_m'),
@@ -197,7 +202,8 @@ class Clientes extends CI_Controller {
 						'celular' => $this->input->post('celular_m'),
 						'domicilio' => $this->input->post('domicilio_m'),
 						'id_comunidad' => $this->input->post('id_comunidad_m'),
-						'id_paquete' => $this->input->post('id_paquete_m')
+						'id_paquete' => $this->input->post('id_paquete_m'),
+						'fecha_instalacion' => date("Y/m/d", strtotime($this->input->post('fecha_instalacion_m'))),
 						);
 					$id = $this->input->post('id_cliente', TRUE);
 					

@@ -263,6 +263,12 @@
 							</div>
 						</div>
 						<div class="form-group row">
+							<label for="example-date-input" class="col-sm-3 col-form-label text-right">Fecha de Instalación</label>
+							<div class="col-sm-6">
+								<input class="form-control" type="date" value="<?php echo  date("Y-m-d");;?>" id="fecha_instalacion" name="fecha_instalacion">
+							</div>
+						</div>
+						<div class="form-group row">
 							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Colonia</label>
 							<div class="col-sm-6">
 							<select class="form-control" id="id_comunidad" name="id_comunidad">
@@ -317,7 +323,7 @@
 						<div class="form-group row">
 							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Nombre</label>
 							<div class="col-sm-6">
-								<input class="form-control" type="hidden" id="id_cliente" name="id_cliente" value='<?php echo $id_cliente;?>' autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">	
+								<input class="form-control" type="hidden" id="id_cliente" name="id_cliente"  autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">	
 								<input class="form-control" type="text" id="nombre_m" name="nombre_m" autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">
 							</div>
 						</div>
@@ -343,6 +349,12 @@
 							<label for="example-text-input" class="col-sm-3 col-form-label text-right">Domicilio</label>
 							<div class="col-sm-6">
 								<input class="form-control" type="text" id="domicilio_m" name="domicilio_m" autocomplete="off" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="example-date-input" class="col-sm-3 col-form-label text-right">Fecha de Instalación</label>
+							<div class="col-sm-6">
+								<input class="form-control" type="date" id="fecha_instalacion_m" name="fecha_instalacion_m">
 							</div>
 						</div>
 						<div class="form-group row">

@@ -100,6 +100,7 @@ aro.clientes = (function () {
                            $('#domicilio_m').val(response.domicilio);
                            $('#id_comunidad_m').val(response.id_comunidad);
                            $('#id_paquete_m').val(response.id_paquete);
+                           $('#fecha_instalacion_m').val(response.fecha_instalacion);
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert('error');
@@ -147,6 +148,9 @@ aro.clientes = (function () {
             $("#id_comunidad").blur(function(){
                 $('#noti_agrega_cliente').hide();
             });
+            $("#fecha_instalacion").blur(function(){
+                $('#noti_agrega_cliente').hide();
+            });
         },
 
         submit_guarda: function(){
@@ -186,6 +190,10 @@ aro.clientes = (function () {
                         $('#noti_agrega_cliente').html("Se requiere colocar una comunidad.");
                         $('#noti_agrega_cliente').show();
                         $('#id_comunidad').trigger('focus');
+                       }else if(response=='fecha_instalacion'){
+                        $('#noti_agrega_cliente').html("Se requiere colocar una fecha de instalacion.");
+                        $('#noti_agrega_cliente').show();
+                        $('#fecha_instalacion').trigger('focus');
                        }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -235,6 +243,16 @@ aro.clientes = (function () {
                         $('#noti_modificar_cliente').html("Se requiere colocar una comunidad.");
                         $('#noti_modificar_cliente').show();
                         $('#id_comunidad_m').trigger('focus');
+                       }else if(response=='fecha_instalacion'){
+                        $('#noti_modificar_cliente').html("Se requiere colocar una fecha de instalación.");
+                        $('#noti_modificar_cliente').show();
+                        $('#fecha_instalacion_m').trigger('focus');
+                       }else{
+                        Swal.fire(
+                            'Se actualizo!',
+                            'El cliente a sido actualizado satisfactoriamente.',
+                            'success'
+                        )
                        }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
