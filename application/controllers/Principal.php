@@ -162,8 +162,8 @@ class Principal extends CI_Controller {
 
 	public function revertir_pago($id_data){
 		if ($this->Musuarios->logged_id()) {
-
-			echo 'OK';
+			$data =  array();
+			$id_pago = $this->input->post('id_pago', TRUE);
             
         } else {
             redirect(base_url('index.php'));

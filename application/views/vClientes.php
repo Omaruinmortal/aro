@@ -162,7 +162,7 @@
 				<!--end row-->
 				<!-- end page title end breadcrumb -->
 				<div class="row">
-					<div class="col-12">
+					<div class="col-11">
 						<div class="card">
 							<div class="card-body">
                             <button type="button" id="agrega_usuario" class="btn btn-gradient-primary px-4 btn-rounded float-right"><i class="mdi mdi-account-multiple-plus-outline"></i></button>

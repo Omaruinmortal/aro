@@ -118,6 +118,45 @@ aro.clientes = (function () {
                     })
                 });
 
+                $(document).on("click", "#btn_modifica_pago", function () {
+
+                    Swal.fire({
+                        title: 'Esta seguro de revertir este Pago?',
+                        text: "",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, Revertir!'
+                    }).then((result) => {
+                        if (result.value) {
+                            $.ajax({
+                                url: 'Clientes/elimina_cliente',
+                                type: 'POST',
+                                dataType: 'html', //expect return data as html from server
+                                data: { id: data },
+                                dataType: 'json',
+                                success: function (response, textStatus, jqXHR) {
+                                    if (response == true) {
+                                        Swal.fire(
+                                            'Se elimino!',
+                                            'El cliente a sido borrado satisfactoriamente.',
+                                            'success'
+                                        )
+    
+                                        tabla_clientes.api().ajax.reload();
+                                    }
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    console.log('error');
+                                    console.log('error(s):' + textStatus, errorThrown);
+                                }
+                            });
+    
+                        }
+                    });
+                });
+
                 $(document).on("click", "#close_modal_cliente", function () {
                     $('#frm_agrega_cliente')[0].reset();
                     $('#id_comunidad').prop('selectedIndex',0);
