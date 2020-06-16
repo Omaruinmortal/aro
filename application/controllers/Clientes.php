@@ -3,21 +3,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Clientes extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
+	private $defaultData = array(
+        'title' => 'ARO | Dashboard',
+        'layout' => 'plantilla/lytDefault',
+        'contentView' => 'vUndefined',
+        'stylecss' => '',
+    );
+
+    private function _renderView($data = array()) {
+		$data = array_merge($this->defaultData, $data);
+        $this->load->view($data['layout'], $data);
+        //$this->removeCache();       
+	}
+	
     public function __construct()
 	{
 		parent::__construct();
@@ -45,9 +43,12 @@ class Clientes extends CI_Controller {
 			$where_antenas_ap = ' 1 = 1';
 			$data['antenas_ap'] = $this->Mconexion->trae_antenas_ap($where_antenas_ap);  
 			$where_paquetes = ' 1 = 1';
-			$data['paquetes'] = $this->Mconexion->trae_paquetes($where_paquetes);  
-			
-            $this->load->view('vClientes',$data);
+			$data['paquetes'] = $this->Mconexion->trae_paquetes($where_paquetes);
+
+			$data['scripts'] = array('clientes'); 
+			$data['layout'] = 'plantilla/lytDefault';
+			$data['contentView'] = 'vClientes';
+			$this->_renderView($data);
         } else {
             redirect(base_url('index.php'));
         }

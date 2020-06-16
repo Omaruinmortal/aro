@@ -30,10 +30,11 @@
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
         
-        <?php  foreach($scripts as $s):?>
-           <script type='text/javascript' src = '<?php echo base_url() ?>js/<?php echo $s;?>'>
-        <?php endforeach;?>
-            </script>
+        
+        <?php if (isset($scripts)) : foreach ($scripts as $js) : ?>
+        <script src="<?php echo base_url() . "js/{$js}.js" ?>?filever=<?php echo time() ?>"  language="JavaScript" type="text/javascript"></script>
+        <?php endforeach;
+        endif; ?>
         <script>
             var base_url = "http://<?php echo $_SERVER['HTTP_HOST'] ?>/aro";
         </script>

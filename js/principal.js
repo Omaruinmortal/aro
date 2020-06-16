@@ -193,9 +193,6 @@ aro.principal = (function () {
                 $('#noti_archivo_pago').hide();
             });
         },
-
         
-        
-       
     }
 })();

@@ -3,32 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Principal extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
-    public function __construct()
-	{
-		parent::__construct();
-		$this->load->model('Musuarios');
-		$this->load->model('Mclientes');
-		$this->load->model('Mconexion');
-		$this->load->library('upload');
-	}
-
 	private $defaultData = array(
-        'title' => 'ARO',
+        'title' => 'ARO | Dashboard',
         'layout' => 'plantilla/lytDefault',
         'contentView' => 'vUndefined',
         'stylecss' => '',
@@ -40,6 +16,17 @@ class Principal extends CI_Controller {
         //$this->removeCache();       
     }
 
+	
+    public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Musuarios');
+		$this->load->model('Mclientes');
+		$this->load->model('Mconexion');
+		$this->load->library('upload');
+	}
+
+	
 	public function base() { 
         if ($this->Musuarios->logged_id()) {
 		
@@ -51,8 +38,7 @@ class Principal extends CI_Controller {
 	public function index() { 
         if ($this->Musuarios->logged_id()) {
 			//jika memang session sudah terdaftar, maka redirect ke halaman dahsboard
-			$data = array();
-			$data['scripts'] = array('principal.js');
+			$data = array();			
 			$data['usuario'] = $this->session->userdata('usuario');     
 			$data['nombre_completo'] = $this->session->userdata('nombre_completo'); 
 			$data['todos_clientes'] = $this->Mconexion->cantidad_todos_clientes();
@@ -60,8 +46,8 @@ class Principal extends CI_Controller {
 			$data['todos_clientes_por_pagar'] = $this->Mconexion->cantidad_todos_clientes_por_pagar();
 
 			$data['scripts'] = array('principal'); 
+			$data['layout'] = 'plantilla/lytDefault';
 			$data['contentView'] = 'vPrincipal';
-			$data['title'] = ucfirst("ARO | Dashboard");
 			$this->_renderView($data);
         } else {
 			redirect(base_url('index.php'));	
