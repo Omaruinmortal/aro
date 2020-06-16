@@ -88,7 +88,7 @@ aro.principal = (function () {
                             $.ajax({
                                 url: 'Principal/revertir_pago/' + id_data,
                                 type: 'post',
-                                dataType: 'json', //expect return data as html from server
+                                dataType: 'html', //expect return data as html from server
                                 data: id_data,
                                 success: function (response, textStatus, jqXHR) {
                                     if(response=='OK')
@@ -98,6 +98,7 @@ aro.principal = (function () {
                                             'Usted revirtio el pago.',
                                             'success'
                                           )
+                                          location.reload();
                                     }                                    
                                 },
                                 error: function (jqXHR, textStatus, errorThrown) {

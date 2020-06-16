@@ -27,8 +27,20 @@ class Principal extends CI_Controller {
 		$this->load->library('upload');
 	}
 
-	public function base()
-	{ 
+	private $defaultData = array(
+        'title' => 'ARO',
+        'layout' => 'plantilla/lytDefault',
+        'contentView' => 'vUndefined',
+        'stylecss' => '',
+    );
+
+    private function _renderView($data = array()) {
+		$data = array_merge($this->defaultData, $data);
+        $this->load->view($data['layout'], $data);
+        //$this->removeCache();       
+    }
+
+	public function base() { 
         if ($this->Musuarios->logged_id()) {
 		
         } else {
@@ -36,8 +48,7 @@ class Principal extends CI_Controller {
         }
 	}
 
-	public function index()
-	{ 
+	public function index() { 
         if ($this->Musuarios->logged_id()) {
 			//jika memang session sudah terdaftar, maka redirect ke halaman dahsboard
 			$data = array();
@@ -47,7 +58,11 @@ class Principal extends CI_Controller {
 			$data['todos_clientes'] = $this->Mconexion->cantidad_todos_clientes();
 			$data['todos_clientes_pagaron'] = $this->Mconexion->cantidad_todos_clientes_pagaron();
 			$data['todos_clientes_por_pagar'] = $this->Mconexion->cantidad_todos_clientes_por_pagar();
-            $this->load->view('vPrincipal',$data);
+
+			$data['scripts'] = array('principal'); 
+			$data['contentView'] = 'vPrincipal';
+			$data['title'] = ucfirst("ARO | Dashboard");
+			$this->_renderView($data);
         } else {
 			redirect(base_url('index.php'));	
         }
@@ -77,8 +92,7 @@ class Principal extends CI_Controller {
 						$this->Mconexion->obtiene_cliente("id_cliente = " . $row->id_cliente)->segundo_apellido,
 						strtoupper($row->mes),
 						$this->Mconexion->trae_comunidad("id_comunidad = ". $this->Mconexion->obtiene_cliente("id_cliente = " . $row->id_cliente)->id_comunidad)->nombre_comunidad,
-						$comprobante,
-						$row->observacion,																		
+						$comprobante,																	
 						$boton_pago.''.$boton_revert_pago,
 					);
 				}
@@ -146,7 +160,7 @@ class Principal extends CI_Controller {
 					
 					$res = $this->Mconexion->carga_pago($id_pago,$sql);
 					
-					if($res == true){
+					if($res == 1){
 						echo 'OK';
 					}
 				}else{
@@ -162,8 +176,17 @@ class Principal extends CI_Controller {
 
 	public function revertir_pago($id_data){
 		if ($this->Musuarios->logged_id()) {
+			$id_usuario = $this->session->userdata('id_persona');
 			$data =  array();
-			$id_pago = $this->input->post('id_pago', TRUE);
+			$sql =  array('comprobante_pago' => '',
+								'id_estado_pago' => 1,
+								'observacion' => '',
+								'id_usuario_registro' => intval($id_usuario),
+								);
+
+			if($this->Mconexion->revertir_pago($id_data,$sql)){
+				echo 'OK';
+			}
             
         } else {
             redirect(base_url('index.php'));
